@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Tetris</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="tetris.js"></script>
+</head>
+
+<body>
+  <img src="img/tetris-logo.png" alt="Tetris Logo" width=180px>
+
+  <div class="container">
+    <div class="stats">
+      score:
+      <div id="score" style="display: inline-block"></div>
+      <br />
+      rows cleared:
+      <div id="rows-cleared" style="display: inline-block"></div>
+      <br />
+      level:
+      <div id="level" style="display: inline-block"></div>
+      <br />
+      <br />
+      <canvas id="held-piece" width="120" height="120"></canvas>
+      <br />
+      <br />
+      singles:
+      <div id="singles" style="display: inline-block"></div>
+      <br />
+      doubles:
+      <div id="doubles" style="display: inline-block"></div>
+      <br />
+      triples:
+      <div id="triples" style="display: inline-block"></div>
+      <br />
+      tetris:
+      <div id="num-tetris" style="display: inline-block"></div>
+    </div>
+    <div class="tetris">
+      <canvas id="tetris" width="300" height="600"></canvas>
+    </div>
+    <div class="next-piece">
+      next piece:
+      <br />
+      <br />
+      <canvas id="next-piece" width="120" height="120"></canvas>
+    </div>
+  </div>
+</body>
+
+</html>
