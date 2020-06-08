@@ -90,25 +90,32 @@ function createMatrix(width, height) {
     return matrix;
 }
 
-function createPiece() {
-    const pieces = "IJLOSTZ";
-    let type = pieces[pieces.length * Math.random() | 0];
-    switch (type) {
-        case "I": return [[0,1,0,0],[0,1,0,0],[0,1,0,0],[0,1,0,0]];
-            break;
-        case "J": return [[2,0,0],[2,2,2],[0,0,0]];
-            break;
-        case "L": return [[0,0,3],[3,3,3],[0,0,0]];
-            break;
-        case "O": return [[4,4],[4,4]];
-            break;
-        case "S": return [[0,5,5],[5,5,0],[0,0,0]];
-            break;
-        case "T": return [[0,6,0],[6,6,6],[0,0,0]];
-            break;
-        case "Z": return [[7,7,0],[0,7,7],[0,0,0]];
-            break;
+function createPieces() {
+    const pieces = ["I","J","L","O","S","T","Z"];
+    let shuffledPieces = shuffle(pieces);
+    pieceToMatrix = {
+        "I": [[0,1,0,0],[0,1,0,0],[0,1,0,0],[0,1,0,0]],
+        "J": [[2,0,0],[2,2,2],[0,0,0]],
+        "L": [[0,0,3],[3,3,3],[0,0,0]],
+        "O": [[4,4],[4,4]],
+        "S": [[0,5,5],[5,5,0],[0,0,0]],
+        "T": [[0,6,0],[6,6,6],[0,0,0]],
+        "Z": [[7,7,0],[0,7,7],[0,0,0]]
+    };
+    var output = shuffledPieces.map(i => pieceToMatrix[i]);
+    return output;
+}
+
+function shuffle(arr) {
+    var currentIndex = arr.length, temporaryValue, randomIndex;
+    while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex --;
+        temporaryValue = arr[currentIndex];
+        arr[currentIndex] = arr[randomIndex];
+        arr[randomIndex] = temporaryValue;
     }
+    return arr;
 }
 
 function draw() {
@@ -153,7 +160,8 @@ function drawNextPiece() {
         contextNextPiece.fillStyle = "#202028";
         contextNextPiece.fillRect(0, 0, canvasNextPiece.width, canvasNextPiece.height);
 
-        player.nextPiece.forEach((row, y) => {
+        nextPiece = player.nextPieces[0];
+        nextPiece.forEach((row, y) => {
             row.forEach((value, x) => {
                 if (value !== 0) {
                     contextNextPiece.fillStyle = colorMap[value];
@@ -190,7 +198,7 @@ function newPlayer() {
     return {
         gameState: true,
         matrix: null,
-        nextPiece: createPiece(),
+        nextPieces: createPieces(),
         heldPiece: null,
         pos: {x: 0, y: 0},
         score: 0,
@@ -235,8 +243,11 @@ function playerMove(dir) {
 
 function playerReset() {
     const pieces = "IJLOSTZ";
-    player.matrix = player.nextPiece;
-    player.nextPiece = createPiece();
+    player.matrix = player.nextPieces[0];
+    player.nextPieces = player.nextPieces.slice(1,);
+    if (player.nextPieces.length === 0) {
+        player.nextPieces = createPieces();
+    }
     playerResetPos();
 }
 
@@ -248,9 +259,6 @@ function playerResetPos() {
 
         arena.forEach(row => row.fill(0));
 
-        player.matrix = createPiece();
-        player.nextPiece = createPiece();
-        drawNextPiece();
         player.heldPiece = null;
         drawHeldPiece();
 
