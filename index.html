@@ -2,10 +2,9 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css"></link>
   <title>Tetris</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <script src="tetris.js"></script>
 </head>
 
 <body>
@@ -13,41 +12,51 @@
 
   <div class="container">
     <div class="stats">
-      score:
-      <div id="score" style="display: inline-block"></div>
-      <br />
-      rows cleared:
-      <div id="rows-cleared" style="display: inline-block"></div>
-      <br />
-      level:
-      <div id="level" style="display: inline-block"></div>
-      <br />
-      <br />
-      <canvas id="held-piece" width="120" height="120"></canvas>
-      <br />
-      <br />
-      singles:
-      <div id="singles" style="display: inline-block"></div>
-      <br />
-      doubles:
-      <div id="doubles" style="display: inline-block"></div>
-      <br />
-      triples:
-      <div id="triples" style="display: inline-block"></div>
-      <br />
-      tetris:
-      <div id="num-tetris" style="display: inline-block"></div>
+      <table>
+        <tr><td>score:</td><td><div id="score"></div></td></tr>
+        <tr><td>rows cleared:</td><td><div id="rows-cleared"></div></td></tr>
+        <tr><td>level:</td><td><div id="level"></div></td></tr>
+
+        <tr><td style="padding: 30px;"><canvas id="held-piece" width="120" height="120"></canvas></td></tr>
+
+        <tr><td>singles:</td><td><div id="singles"></div></td></tr>
+        <tr><td>doubles:</td><td><div id="doubles"></div></td></tr>
+        <tr><td>triples:</td><td><div id="triples"></div></td></tr>
+        <tr><td>tetris:</td><td><div id="num-tetris"></div></td></tr>
+      </table>
     </div>
+
     <div class="tetris">
       <canvas id="tetris" width="300" height="600"></canvas>
     </div>
+
     <div class="next-piece">
-      next piece:
-      <br />
-      <br />
+      next piece:<br><br>
       <canvas id="next-piece" width="120" height="120"></canvas>
     </div>
   </div>
-</body>
 
+  <div id="game-over-window" class="game-over-box">
+    <div class="game-over-header">
+      <p><b>GAME OVER</b></p>
+    </div>
+    <div class="game-over-content">
+      <table>
+        <tr><td>final score:</td><td><div id="final-score"></div></td></tr>
+        <tr><td>rows cleared:</td><td><div id="final-rows-cleared"></div></td></tr>
+        <tr><td>level reached:</td><td><div id="final-level"></div></td></tr>
+
+        <tr><td>singles:</td><td><div id="final-singles"></div></td></tr>
+        <tr><td>doubles:</td><td><div id="final-doubles"></div></td></tr>
+        <tr><td>triples:</td><td><div id="final-triples"></div></td></tr>
+        <tr><td>tetris:</td><td><div id="final-num-tetris"></div></td></tr>
+      </table>
+    </div>
+    <div class="game-over-content">
+      <button type="button" id="play-again-button">Play again!</button>
+    </div>
+  </div>
+
+</body>
+<script src="app.js" charset="utf-8"></script>
 </html>
