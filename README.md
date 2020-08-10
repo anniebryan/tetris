@@ -3,7 +3,8 @@
 I created my version of Tetris for the web browser. (It's _definitely_ a work in progress and was mostly a way for me to practice coding in JavaScript)
 
 To play, click [here](https://htmlpreview.github.io/?https://github.com/anniebryan/tetris/blob/master/index.html) <br>
-[Changelist](https://github.com/anniebryan/tetris/blob/master/CHANGELOG.md)
+[Changelist](https://github.com/anniebryan/tetris/blob/master/CHANGELOG.md) <br>
+[Tetris](https://trello.com/b/YJVNgNXC/tetris-game)
 
 <b>Controls:</b>
 <ul>
