@@ -2,7 +2,9 @@
 
 I created my version of Tetris for the web browser. (It's _definitely_ a work in progress and was mostly a way for me to practice coding in JavaScript)
 
-To play, click [here](https://htmlpreview.github.io/?https://github.com/anniebryan/tetris/blob/master/index.html)
+To play, click [here](https://htmlpreview.github.io/?https://github.com/anniebryan/tetris/blob/master/index.html) <br>
+[Changelist](https://github.com/anniebryan/tetris/blob/master/CHANGELOG.md) <br>
+[Trello Board](https://trello.com/b/YJVNgNXC/tetris-game)
 
 <b>Controls:</b>
 <ul>
