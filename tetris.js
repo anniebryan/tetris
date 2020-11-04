@@ -28,7 +28,8 @@ const colorMap = [null,
     '#F1EE4F',
     '#6EEB47',
     '#922DE7',
-    '#DD2F21'
+    '#DD2F21',
+    '#505050'
 ];
 
 let dropCounter = 0;
@@ -69,9 +70,7 @@ function arenaSweep() {
     updateScore();
 }
 
-function collide(arena, player) {
-    const matrix = player.matrix;
-    const offset = player.pos;
+function collide(arena, matrix, offset) {
     for (let y = 0; y < matrix.length; y++) {
         for (let x = 0; x < matrix[y].length; x++) {
             if (matrix[y][x] !== 0 && (arena[y + offset.y] && arena[y + offset.y][x + offset.x]) !== 0) {
@@ -123,7 +122,29 @@ function draw() {
     context.fillRect(0, 0, canvas.width, canvas.height);
 
     drawMatrix(arena, {x: 0, y: 0});
+    drawDroppedLocation(player.matrix, player.pos, arena);
     drawMatrix(player.matrix, player.pos);
+}
+
+function drawDroppedLocation(matrix, offset, arena) {
+    droppedOffset = calculateDroppedOffset(matrix, offset, arena);
+    matrix.forEach((row, y) => {
+        row.forEach((value, x) => {
+            if (value !== 0) {
+                context.fillStyle = colorMap[8];
+                context.fillRect(x + droppedOffset.x, y + droppedOffset.y, 1, 1);
+            }
+        });
+    });
+}
+
+function calculateDroppedOffset(matrix, offset, arena) {
+    proposedOffset = {x: offset.x, y:offset.y + 1};
+    while (!collide(arena, matrix, proposedOffset)) {
+        offset = proposedOffset;
+        proposedOffset = {x: offset.x, y:offset.y + 1};
+    }
+    return offset;
 }
 
 function drawMatrix(matrix, offset) {
@@ -213,7 +234,7 @@ function newPlayer() {
 
 function playerDrop() {
     player.pos.y++;
-    if (collide(arena, player)) {
+    if (collide(arena, player.matrix, player.pos)) {
         player.pos.y--;
         merge(arena, player);
         playerReset();
@@ -236,7 +257,7 @@ function playerHold() {
 
 function playerMove(dir) {
     player.pos.x += dir;
-    if (collide(arena, player)) {
+    if (collide(arena, player.matrix, player.pos)) {
         player.pos.x -= dir;
     }
 }
@@ -254,7 +275,7 @@ function playerReset() {
 function playerResetPos() {
     player.pos.x = (arena[0].length / 2 | 0) - (player.matrix[0].length / 2 | 0);
     player.pos.y = 0;
-    if (collide(arena, player)) { // game over
+    if (collide(arena, player.matrix, player.pos)) { // game over
         player.gameState = false;
 
         arena.forEach(row => row.fill(0));
@@ -272,7 +293,7 @@ function playerRotate(dir) {
     const pos = player.pos.x;
     let offset = 1;
     rotate(player.matrix, dir);
-    while (collide(arena, player)) {
+    while (collide(arena, player.matrix, player.pos)) {
         player.pos.x += offset;
         offset = -(offset + (offset > 0 ? 1 : -1));
         if (offset > player.matrix[0].length) {
