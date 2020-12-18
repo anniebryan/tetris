@@ -221,6 +221,7 @@ function newPlayer() {
         matrix: null,
         nextPieces: createPieces(),
         heldPiece: null,
+        canHold: true,
         pos: {x: 0, y: 0},
         score: 0,
         level: 0,
@@ -239,6 +240,7 @@ function playerDrop() {
         merge(arena, player);
         playerReset();
         arenaSweep();
+        player.canHold = true;
     }
     dropCounter = 0;
 }
@@ -248,10 +250,11 @@ function playerHold() {
         player.heldPiece = player.matrix;
         drawHeldPiece();
         playerReset();
-    } else {
+    } else if (player.canHold) {
         [player.matrix, player.heldPiece] = [player.heldPiece, player.matrix];
         drawHeldPiece();
         playerResetPos();
+        player.canHold = false;
     }
 }
 
