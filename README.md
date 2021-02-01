@@ -6,7 +6,10 @@ To play, click [here](https://htmlpreview.github.io/?https://github.com/anniebry
 [Changelist](https://github.com/anniebryan/tetris/blob/master/CHANGELOG.md) <br>
 [Trello Board](https://trello.com/b/YJVNgNXC/tetris-game)
 
+![image](img/tetris-img.png)
+
 <b>Controls:</b>
+
 <ul>
   <li>Move arrow keys left and right to move the pieces</li>
   <li>Press the up arrow key to save a piece for later</li>
