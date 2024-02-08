@@ -263,6 +263,16 @@ function playerDrop() {
     dropCounter = 0;
 }
 
+function playerHardDrop() {
+    let droppedOffset = calculateDroppedOffset(player.matrix, player.pos, arena);
+    player.pos = droppedOffset
+    merge(arena, player);
+    playerReset();
+    arenaSweep();
+    player.canHold = true;
+}
+
+
 function playerHold() {
     if (player.heldPiece === null) {
         player.heldPiece = player.matrix;
@@ -404,6 +414,8 @@ document.addEventListener('keydown', event => {
         case "ArrowDown": playerDrop();
             break;
         case "ArrowUp": playerHold();
+            break;
+        case "Enter": playerHardDrop();
             break;
         case "d": playerRotate(+1);
             break;
