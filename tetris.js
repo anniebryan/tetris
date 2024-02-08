@@ -6,9 +6,20 @@ const canvas = get("tetris");
 const context = canvas.getContext("2d");
 context.scale(30, 30);
 
-const canvasNextPiece = get("next-piece");
-const contextNextPiece = canvasNextPiece.getContext("2d");
-contextNextPiece.scale(30, 30);
+const numPreviewPieces = 3
+const canvasNextPiece0 = get("next-piece-0");
+const canvasNextPiece1 = get("next-piece-1");
+const canvasNextPiece2 = get("next-piece-2");
+const canvasNextPieces = [canvasNextPiece0, canvasNextPiece1, canvasNextPiece2]
+
+const contextNextPiece0 = canvasNextPiece0.getContext("2d");
+const contextNextPiece1 = canvasNextPiece1.getContext("2d");
+const contextNextPiece2 = canvasNextPiece2.getContext("2d");
+const contextNextPieces = [contextNextPiece0, contextNextPiece1, contextNextPiece2]
+
+contextNextPiece0.scale(30, 30);
+contextNextPiece1.scale(30, 30);
+contextNextPiece2.scale(30, 30);
 
 const canvasHeldPiece = get("held-piece");
 const contextHeldPiece = canvasHeldPiece.getContext("2d");
@@ -179,20 +190,24 @@ function drawHeldPiece() {
     }
 }
 
-function drawNextPiece() {
+function drawNextPieces() {
     if (player.gameState) {
-        contextNextPiece.fillStyle = "#202028";
-        contextNextPiece.fillRect(0, 0, canvasNextPiece.width, canvasNextPiece.height);
-
-        nextPiece = player.nextPieces[0];
-        nextPiece.forEach((row, y) => {
-            row.forEach((value, x) => {
-                if (value !== 0) {
-                    contextNextPiece.fillStyle = colorMap[value];
-                    contextNextPiece.fillRect(x+1, y, 1, 1);
-                }
+        for (let i = 0; i < numPreviewPieces; i++) {
+            let canvasNextPiece = canvasNextPieces[i];
+            let contextNextPiece = contextNextPieces[i];
+            contextNextPiece.fillStyle = "#202028";
+            contextNextPiece.fillRect(0, 0, canvasNextPiece.width, canvasNextPiece.height);
+            
+            let nextPiece = player.nextPieces[i];
+            nextPiece.forEach((row, y) => {
+                row.forEach((value, x) => {
+                    if (value !== 0) {
+                        contextNextPiece.fillStyle = colorMap[value];
+                        contextNextPiece.fillRect(x+1, y, 1, 1);
+                    }
+                });
             });
-        });
+        }
     } else {
         drawGameOver();
     }
@@ -272,8 +287,8 @@ function playerReset() {
     const pieces = "IJLOSTZ";
     player.matrix = player.nextPieces[0];
     player.nextPieces = player.nextPieces.slice(1,);
-    if (player.nextPieces.length === 0) {
-        player.nextPieces = createPieces();
+    if (player.nextPieces.length < numPreviewPieces) {
+        player.nextPieces = player.nextPieces.concat(createPieces());
     }
     playerResetPos();
 }
@@ -291,7 +306,7 @@ function playerResetPos() {
 
         saveFinalStats();
     } else {
-        drawNextPiece();
+        drawNextPieces();
     }
 }
 
