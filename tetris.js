@@ -268,6 +268,7 @@ function playerHold() {
         player.heldPiece = player.matrix;
         drawHeldPiece();
         playerReset();
+        player.canHold = false;
     } else if (player.canHold) {
         [player.matrix, player.heldPiece] = [player.heldPiece, player.matrix];
         drawHeldPiece();
