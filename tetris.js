@@ -309,6 +309,7 @@ function playerResetPos() {
     player.pos.y = 0;
     if (collide(arena, player.matrix, player.pos)) { // game over
         player.gameState = false;
+        drawGameOver();
 
         arena.forEach(row => row.fill(0));
 
@@ -406,27 +407,30 @@ playAgainButton.onclick = function() {
 }
 
 document.addEventListener('keydown', event => {
-    switch (event.key) {
-        case "ArrowRight": playerMove(+1);
-            break;
-        case "ArrowLeft": playerMove(-1);
-            break;
-        case "ArrowDown": playerDrop();
-            break;
-        case "ArrowUp": playerHold();
-            break;
-        case "Enter": playerHardDrop();
-            break;
-        case "d": playerRotate(+1);
-            break;
-        case "D": playerRotate(+1);
-            break;
-        case "a": playerRotate(-1);
-            break;
-        case "A": playerRotate(-1);
+    if (player.gameState) {
+        switch (event.key) {
+            case "ArrowRight": playerMove(+1);
+                break;
+            case "ArrowLeft": playerMove(-1);
+                break;
+            case "ArrowDown": playerDrop();
+                break;
+            case "ArrowUp": playerHold();
+                break;
+            case "Enter": playerHardDrop();
+                break;
+            case "d": playerRotate(+1);
+                break;
+            case "D": playerRotate(+1);
+                break;
+            case "a": playerRotate(-1);
+                break;
+            case "A": playerRotate(-1);
+        }
     }
 });
 
+player.gameState = false;
 newGameButton.onclick = function() {
     newGameWindow.style.display = "none";
     resetGame();
