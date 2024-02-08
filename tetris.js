@@ -14,6 +14,9 @@ const canvasHeldPiece = get("held-piece");
 const contextHeldPiece = canvasHeldPiece.getContext("2d");
 contextHeldPiece.scale(30, 30);
 
+const newGameWindow = get("new-game-window");
+const newGameButton = get("new-game-button");
+
 const gameOverWindow = get("game-over-window");
 const playAgainButton = get("play-again-button");
 
@@ -396,4 +399,7 @@ document.addEventListener('keydown', event => {
     }
 });
 
-resetGame();
+newGameButton.onclick = function() {
+    newGameWindow.style.display = "none";
+    resetGame();
+}
