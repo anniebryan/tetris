@@ -78,6 +78,11 @@ td {
     right: 15%;
 }
 
+.piece-container {
+    position: absolute;
+    left: 100px;
+}
+
 .stats {
     display: inline-block;
     width: 20%;
